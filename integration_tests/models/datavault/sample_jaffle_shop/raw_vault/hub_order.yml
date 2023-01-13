@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: hub_order
+    columns:
+      - name: hkey
+        tests:
+          - unique
+          - not_null

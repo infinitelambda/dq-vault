@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: it_sample_hub
+    description: integration test for DV HUB
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: 1 = 0
+          meta: { 'description': 'This test will always FAIL' }
+          tags: ['failed']
+      - dbt_utils.expression_is_true:
+          expression: 1 = 1
+          meta: { 'description': 'This test will always pass' }
+          tags: ['pass']
+    columns:
+      - name: hub_hkey
+        tests:
+          - unique:
+              meta: { 'description': 'hub_hkey unique test 1' }
+          - test_generate_random_test_result_base_on_current_time:   # generate random fail/pass result
+              meta: { 'description': 'This test status result will be random base on execution time' }

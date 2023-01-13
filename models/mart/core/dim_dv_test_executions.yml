@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: dim_dv_test_executions
+    description: info on test executions
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - run_id
+            - test_id
+    columns:
+      - name: run_id
+      - name: test_id
+      - name: test_status
+      - name: test_message
+      - name: failures_count
+      - name: test_executed_at
+      - name: test_completed_at
+      - name: test_execution_time

@@ -1,0 +1,14 @@
+version: 2
+
+macros:
+  - name: result_to_dict
+    description: |
+      Parse the single `RunResult` node to `dict` so that it can be serialized to JSON string.
+
+      Applicable to the node's `resource_type = test` ONLY.
+    docs:
+      show: true
+    arguments:
+      - name: node
+        type: RunResult
+        description: Single test node

@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: run_result_log
+    database: '{{ var("dq_vault__raw_db", target.database) }}'
+    schema: '{{ var("dq_vault__raw_schema", target.schema) }}'
+    tables:
+      - name: raw_test
+        description: Raw table contains the test result in JSON format
+        columns:
+          - name: created_timestamp
+            description: UTC timestamp when the test result is captured into DWH
+            tests:
+              - not_null
+          - name: content_json
+            description: Json string mapping 1:1 to `RunResult` node
+            tests:
+              - not_null

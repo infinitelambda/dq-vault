@@ -1,0 +1,13 @@
+version: 2
+
+macros:
+  - name: create_resources
+    description: |
+      Return SQL for creating all the resources required for this package.
+
+      USAGE:
+      ```sql
+      {{ '{{' }} dq_vault.create_resources() {{ '}}' }}
+      ```
+    docs:
+      show: true

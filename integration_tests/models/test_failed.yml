@@ -1,0 +1,9 @@
+version: 2
+
+seeds:
+  - name: data_test_general
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: 1 = 0
+          meta: { 'description': 'This test will always FAIL' }
+          tags: ['failed']

@@ -1,0 +1,16 @@
+version: 2
+
+metrics:
+  - name: average_test_execution_time
+    label: Average Test Execution Time
+    model: ref('fact_dv_tests')
+    description: "The execution_time of each test"
+
+    calculation_method: average
+    expression: test_execution_time
+
+    timestamp: test_executed_at
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - test_id

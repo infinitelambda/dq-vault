@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: dim_dv_tests
+    description: tests metadata
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - test_id
+            - test_hashdiff
+            - valid_from
+    columns:
+      - name: test_id
+      - name: test_name
+      - name: datavault_test_type
+      - name: project_name
+      - name: test_database
+      - name: test_schema
+      - name: test_column_name
+      - name: test_severity
+      - name: test_config_tags
+      - name: test_tags
+      - name: test_ref_models
+      - name: test_sources
+      - name: test_metrics
+      - name: test_description
+      - name: test_meta
+      - name: test_hashdiff
+      - name: valid_from
+      - name: valid_to
+      - name: valid_flag

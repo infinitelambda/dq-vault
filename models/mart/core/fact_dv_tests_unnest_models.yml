@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: fact_dv_tests_unnest_models
+    description: fact_dv_tests_unnest_models
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - run_id
+            - test_id
+            - test_ref_model
+    columns:
+      # from dim tests
+      - name: test_id
+      - name: test_name
+      - name: datavault_test_type
+      - name: datavault_type
+      - name: project_name
+      - name: test_database
+      - name: test_schema
+      - name: test_column_name
+      - name: test_severity
+      - name: test_config_tags
+      - name: test_tags
+      - name: test_ref_models
+      ## unnested model
+      - name: test_ref_model #NOTE: which model should it be ? model of the test ref or the model test linked to ? (reference test)
+      ## unnested model
+      - name: test_sources
+      - name: test_metrics
+      - name: test_description
+      - name: test_meta
+      # from executions
+      - name: run_id
+      - name: test_id
+      - name: test_status
+      - name: test_message
+      - name: failures_count
+      - name: test_executed_at
+      - name: test_completed_at
+      - name: test_execution_time

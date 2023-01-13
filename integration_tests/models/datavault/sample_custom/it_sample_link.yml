@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: it_sample_link
+    description: integration test for DV LINK
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: 1 = 0
+          meta: { 'description': 'This test will always FAIL' }
+          tags: ['failed']
+      - dbt_utils.expression_is_true:
+          expression: 1 = 100
+          meta: { 'description': 'This test will always FAIL 2' }
+          tags: ['failed']
+          severity: warn
+      - dbt_utils.expression_is_true:
+          expression: 1 = 1
+          meta: { 'description': 'This test will always pass' }
+          tags: ['pass']
+    columns:
+      - name: link_hkey
+        tests:
+          - unique:
+              config:
+                severity: warn 
+          - test_generate_random_test_result_base_on_current_time:   # generate random fail/pass result
+              meta: { 'description': 'This test status result will be random base on execution time' }

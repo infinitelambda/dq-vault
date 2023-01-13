@@ -1,0 +1,20 @@
+version: 2
+
+macros:
+  - name: get_datavault_type
+    description: |
+      Build the CASE WHEN statement to get the Data Vault type
+
+      Usage:
+      ```
+      select  *,
+              {{ '{{' }} get_datavault_type() {{ '}}' }} as model_type
+
+      from    {{ '{{' }} ref('stg_test') {{ '}}' }}
+      ```
+    docs:
+      show: true
+    arguments:
+      - name: key_column
+        type: string
+        description: The column name which holding the reference models of the test. Default to 'node__refs'

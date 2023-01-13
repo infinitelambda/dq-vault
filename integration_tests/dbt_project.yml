@@ -1,0 +1,56 @@
+name: 'dq_vault_integration_tests'
+version: '1.0'
+
+profile: 'dq_vault_integration_tests'
+
+config-version: 2
+
+model-paths: ["models"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+    - "target"
+    - "dbt_modules"
+    - "dbt_packages"
+
+dispatch:
+  - macro_namespace: 'dq_vault'
+    search_order: ['dq_vault_integration_tests', 'dq_vault', 'dbt']
+  - macro_namespace: 'dbt_utils'
+    search_order: ['dq_vault_integration_tests', 'dbt', 'dbt_utils']
+
+on-run-start:
+  - >
+    {% if var("fresh", false) %}
+      {{ log("Re-create resources as Fresh run") if execute }}
+      {{ dq_vault.refresh_resouces() }}
+    {% endif %}
+
+on-run-end:
+  - '{{ dq_vault.store_test_results_json(results) }}'
+
+vars:
+  dq_vault__enable_store_test: false
+  dq_vault__selected_model_rules: # no configs = no filter / project configs will override default package configs / item ordering does matter:
+    - hub: ['hub']
+    - sat: ['sat','satellite']
+    - link: ['link','tlink','t_link','lnk','tlnk','t_lnk']
+    - pit: ['pit']
+    - bridge: ['bridge']
+    - xts: ['xts']
+
+seeds:
+  dq_vault_integration_tests:
+    +schema: seed
+
+models:
+  dq_vault_integration_tests:
+    datavault:
+      +tags: ['it_sample_datavault']
+      sample_custom:
+        +tags: ['sample_custom']
+      sample_jaffle_shop:
+        +tags: ['sample_jaffle_shop']

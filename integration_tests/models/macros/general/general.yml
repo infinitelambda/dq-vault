@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: test_get_datavault_type
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: replace(replace(actual,' ',''),'\n','') = replace(replace(expected,' ',''),'\n','')
+          
+  - name: test_where_select_dv_models
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: actual like concat('%',expected_hub,'%')
+      - dbt_utils.expression_is_true:
+          expression: actual like concat('%',expected_sat_1,'%')
+      - dbt_utils.expression_is_true:
+          expression: actual like concat('%',expected_sat_2,'%')
+      - dbt_utils.expression_is_true:
+          expression: actual like concat('%',expected_link_1,'%')
+      - dbt_utils.expression_is_true:
+          expression: actual like concat('%',expected_link_2,'%')
+      - dbt_utils.expression_is_true:
+          expression: actual like concat('%',expected_link_3,'%')
+      - dbt_utils.expression_is_true:
+          expression: actual like concat('%',expected_link_4,'%')
+      - dbt_utils.expression_is_true:
+          expression: actual like concat('%',expected_link_5,'%')
+      - dbt_utils.expression_is_true:
+          expression: actual like concat('%',expected_link_6,'%')
+      - dbt_utils.expression_is_true:
+          expression: actual like concat('%',expected_pit,'%')
+      - dbt_utils.expression_is_true:
+          expression: actual like concat('%',expected_bridge,'%')
+      - dbt_utils.expression_is_true:
+          expression: actual like concat('%',expected_xts,'%')
+      - dbt_utils.expression_is_true:
+          expression: actual not like '%and %' # there is no AND operator generated
+      - dbt_utils.expression_is_true:
+          expression: replace(replace(actual,' ',''),'\n','') like '(%)' # has brackets wrapped

@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: sat_customer
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - hkey
+            - hashdiff
+    columns:
+      - name: hkey
+        tests:
+          - not_null
+      - name: hashdiff
+        tests:
+          - not_null

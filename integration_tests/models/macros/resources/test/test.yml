@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: test_get_raw_test
+    tests:
+      - dbt_utils.expression_is_true:
+          where: exact = 1
+          expression: actual = expected
+      - dbt_utils.expression_is_true:
+          where: exact = 0
+          expression: actual like concat('%',expected,'%')

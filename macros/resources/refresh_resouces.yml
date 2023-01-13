@@ -1,0 +1,15 @@
+version: 2
+
+macros:
+  - name: refresh_resouces
+    description: |
+      Return SQL for re-creating all the resources required for this package.
+
+      This aims for testing purpose where requires a fresh environment.
+
+      USAGE:
+      ```sql
+      {{ '{{' }} dq_vault.refresh_resouces() {{ '}}' }}
+      ```
+    docs:
+      show: true

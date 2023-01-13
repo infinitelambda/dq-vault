@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: it_sample_not_dv
+    description: integration test for NON DV MODEL
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: 1 = 0
+          meta: { 'description': 'This model/test will be excluded from the final table' }
+          tags: ['excluded']
+    columns:
+      - name: not_dv_hkey
+        tests:
+          - unique

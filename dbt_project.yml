@@ -1,0 +1,24 @@
+name: 'dq_vault'
+config-version: 2
+version: '0.1.0'
+require-dbt-version: ">=1.2.0"
+
+test-paths: ["tests"]
+
+target-path: "target"
+clean-targets: ["target", "dbt_modules"]
+macro-paths: ["macros"]
+model-paths: ["models"]
+log-path: "logs"
+
+vars:
+  # dq_vault__enable_store_test: true or false
+  # dq_vault__raw_db: 'your_custom_db or target.database'
+  # dq_vault__raw_schema: 'your_custom_schema or target.schema'
+  dq_vault__selected_model_rules:
+    - hub: ['hub']
+    - sat: ['sat','satellite']
+    - link: ['link','tlink','t_link','lnk','tlnk','t_lnk']
+    - pit: ['pit']
+    - bridge: ['bridge']
+    - xts: ['xts']

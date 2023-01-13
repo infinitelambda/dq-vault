@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: fact_dv_tests
+    description: fact_dv_tests
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - run_id
+            - test_id
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('dim_dv_test_executions')
+    columns:
+      # from dim tests
+      - name: test_id
+      - name: test_name
+      - name: datavault_test_type
+      - name: project_name
+      - name: test_database
+      - name: test_schema
+      - name: test_column_name
+      - name: test_severity
+      - name: test_config_tags
+      - name: test_tags
+      - name: test_ref_models
+      - name: test_sources
+      - name: test_metrics
+      - name: test_description
+      - name: test_meta
+      # from executions
+      - name: run_id
+      - name: test_id
+      - name: test_status
+      - name: test_message
+      - name: failures_count
+      - name: test_executed_at
+      - name: test_completed_at
+      - name: test_execution_time
+      - name: run_est_executed_at
+        description: estimated run start time bases on min(test_executed_at) of each run_id

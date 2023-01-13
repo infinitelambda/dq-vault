@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: it_sample_sat
+    description: integration test for DV SAT
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: 1 = 0
+          meta: { 'description': 'This test will always FAIL' }
+          tags: ['failed']
+      - dbt_utils.expression_is_true:
+          expression: 1 = 1
+          meta: { 'description': 'This test will always pass' }
+          tags: ['pass']
+    columns:
+      - name: sat_hkey
+        tests:
+          - unique:
+              config:
+                severity: warn
+          - dbt_utils.relationships_where:
+              to: ref('it_sample_hub')
+              field: hub_hkey
+          - test_generate_random_test_result_base_on_current_time:   # generate random fail/pass result
+              meta: { 'description': 'This test status result will be random base on execution time' }
+      - name: sat_hashdiff

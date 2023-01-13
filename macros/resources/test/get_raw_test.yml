@@ -1,0 +1,23 @@
+version: 2
+
+macros:
+  - name: get_raw_test
+    description: |
+      Return the log test table's relation string: database.schema.table where table is always `RAW_TEST`
+
+      Configurable by dbt variables:
+      ```yaml
+      vars:
+        dq_vault:
+          raw_db: databse name or none
+          raw_schema: schema name or none
+      ```
+    docs:
+      show: true
+    arguments:
+      - name: create_sql
+        type: boolean
+        description: Flag to indicate whether to return `CREATE IF EXISTS` statement
+      - name: full_refresh
+        type: boolean
+        description: Flag to indicate whether to return `CREATE OR REPLACE` statement

@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: link_order_customer
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - hkey
+            - customer_hkey
+    columns:
+      - name: hkey
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_order')
+              field: hkey
+      - name: customer_hkey
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_customer')
+              field: hkey

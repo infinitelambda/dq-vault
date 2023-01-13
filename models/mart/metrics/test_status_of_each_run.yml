@@ -1,0 +1,20 @@
+version: 2
+
+metrics:
+  - name: test_status_of_each_run
+    label: Test status of each run
+    model: ref('fact_dv_tests')
+    description: "The total number of tests for each run, break down by DV model type, and DV test type"
+
+    calculation_method: count_distinct
+    expression: test_id
+
+    timestamp: run_est_executed_at
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - run_id
+      - run_est_executed_at
+      - datavault_type
+      - datavault_test_type
+      - test_status

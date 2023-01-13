@@ -1,0 +1,255 @@
+version: 2
+
+models:
+  - name: stg_test
+    description: Columnized test result based on raw json data
+    columns:
+      - name: project_name
+        description: dbt project name
+        tests:
+          - not_null
+      - name: invocation_id
+        description: dbt project run id
+        tests:
+          - not_null
+      - name: status
+        description: Test result status
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['pass', 'fail', 'warn']
+      - name: timing__compile__started_at
+        tests:
+          - not_null
+        description: Compilation time start
+      - name: timing__compile__completed_at
+        description: Compilation time end
+        tests:
+          - not_null
+      - name: timing__execute__started_at
+        description: Execution time start
+        tests:
+          - not_null
+      - name: timing__execute__completed_at
+        description: Execution time end
+        tests:
+          - not_null
+      - name: thread_id
+        description: Thread ID
+        tests:
+          - not_null
+      - name: execution_time
+        description: Execution duration in seconds
+        tests:
+          - not_null
+      - name: adapter_response
+        description: DWH response in JSON strings
+      - name: message
+        description: Result message if the status is not 'pass'
+      - name: failures
+        description: Failure count
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+      - name: node__raw_sql
+        description: Jinja SQL of the test case
+        tests:
+          - not_null
+      - name: node__test_metadata__name
+        description: Only Generic test - Test name
+      - name: node__test_metadata__kwargs
+        description: Only Generic test - Test arguments
+      - name: node__test_metadata__namespace
+        description: Only Generic test - Test namespace
+      - name: node__compiled
+        description: Flag node compiled, should be always true
+      - name: node__database
+        description: Database name
+        tests:
+          - not_null
+      - name: node__schema
+        description: Audit schema name - used when `store_failure` turned on
+        tests:
+          - not_null
+      - name: node__fqn
+        description: Full qualified names as a list
+        tests:
+          - not_null
+      - name: node__unique_id
+        description: Test unique ID
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: "like 'test.%'"
+      - name: node__package_name
+        description: Package name (or Project name) where the test case is defined at
+        tests:
+          - not_null
+      - name: node__root_path
+        description: Root directory path where the test is defined
+        tests:
+          - not_null
+      - name: node__path
+        description: The test file name generated, inc partial dir path if it's Singular test
+        tests:
+          - not_null
+      - name: node__original_file_path
+        description: Test file path (not including the root path)
+        tests:
+          - not_null
+      - name: node__name
+        description: Singular test file name OR Generic test name generated
+        tests:
+          - not_null
+      - name: node__resource_type
+        description: Node type which is always 'test'
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['test']
+      - name: node__config__enabled
+        description: Test is enabled, should always true (if it's disabled, it is not run and so NOT to be captured)
+        tests:
+          - not_null
+      - name: node__config__alias
+        description: Test name alias, normally `node__name` with hash string to limit the length
+      - name: node__config__schema
+        description: Schema name in `config` of the test. Otherwise `'dbt_test__audit'`
+        tests:
+          - not_null
+      - name: node__config__database
+        description: Database name in `config` of the test. Otherwise `null`
+      - name: node__config__tags
+        description: Test tags in `config` of the test. Otherwise `[]`
+        tests:
+          - not_null
+      - name: node__config__meta
+        description: Test meta in `config` of the test. Otherwise `{}`
+        tests:
+          - not_null
+      - name: node__config__materialized
+        description: Test materialization, always 'test'
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: "= 'test'"
+      - name: node__config__severity
+        description: Test severity
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['WARN','ERROR']
+      - name: node__config__store_failures
+        description: Flag to let dbt store the failures 
+      - name: node__config__where
+        description: Where condition defined in the test
+      - name: node__config__limit
+        description: Limit number of rows defined in the test. Default `null` - no limit
+      - name: node__config__fail_calc
+        description: Fail calculation configured in the test. Default `count(*)`
+        tests:
+          - not_null
+      - name: node__config__warn_if
+        description: Condition to give the test as warning. Default `!= 0`
+        tests:
+          - not_null
+      - name: node__config__error_if
+        description: Condition to give the test as failing. Default `!= 0`
+        tests:
+          - not_null
+      - name: node__tags
+        description: Similar to `node__config__tags`
+      - name: node__refs
+        description: |
+          List of model names that the test is referecing to. Default `[]`
+
+          Sample value: 
+          - [['model_1'], ['model_2']]
+          - [['package_1','model_1'], ['package_1''model_2']]
+        tests:
+          - not_null
+      - name: node__sources
+        description: |
+          List of source tables that the test is referecing to. Default `[]`
+
+          Sample value: 
+          - [['source_name','table_1'], ['source_name''table_2']]
+        tests:
+          - not_null
+      - name: node__metrics
+        description: |
+          List of metric names that the test is referecing to. Default `[]`
+        tests:
+          - not_null
+      - name: node__depends_on__macros
+        description: List of macros that the test depends on
+        tests:
+          - not_null
+      - name: node__depends_on__nodes
+        description: Similar to `node__refs`/`node__sources`/`node__metrics`, but as the list of full qualified string
+        tests:
+          - not_null
+      - name: node__description
+        description: Test description, normally blank
+      - name: node__columns
+        description: Supposed to be list of columns, but always captured as `{}`
+      - name: node__meta
+        description: Similar to `node__config__meta`
+      - name: node__docs__show
+        description: Flag to show or not to show test in dbt docs site
+        tests:
+          - not_null
+      - name: node__patch_path
+        description: Patch path - normally `null`
+      - name: node__compiled_path
+        description: target/compiled test file path
+        tests:
+          - not_null
+      - name: node__build_path
+        description: target/run test file path
+        tests:
+          - not_null
+      - name: node__deferred
+        description: Flag to indicate test is deffered. Default to `false`
+        tests:
+          - not_null
+      - name: node__unrendered_config
+        description: Full unrendered test config
+      - name: node__created_at
+        description: timestamp when the test was created. Value in integer (supposed to be milisecond)
+      - name: node__config_call_dict
+        description: Similar to `node__unrendered_config`
+      - name: node__extra_ctes_injected
+        description: Always `true`
+      - name: node__extra_ctes
+        description: List of CTEs, normally `[]`
+      - name: node__relation_name
+        description: Relation name - Not applicable for test node
+      - name: node__column_name
+        description: Column name where test is defined
+      - name: node__file_key_name
+        description: File key name. Value presenting for Generic test only
+        tests:
+          - not_null:
+              where: node__test_metadata__name is not null
+      - name: created_timestamp
+        description: Timestamp in UTC when test is ingested to DWH
+        tests:
+          - not_null
+      - name: seq
+        description: Sequencial index partitioned by node within a day
+        tests:
+          - not_null
+      - name: datavault_type
+        description: Classified Data Vault type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['hub','sat','link','pit','bridge','xts','unknown']
+      - name: datavault_test_type
+        description: Classified Data Vault test type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['duplication','reference','reconciliation','unknown']

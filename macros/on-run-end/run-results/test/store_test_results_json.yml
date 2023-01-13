@@ -1,0 +1,15 @@
+version: 2
+
+macros:
+  - name: store_test_results_json
+    description: |
+      Store `RunResult` test node(s) into DWH log table as JSON format including some project metadata.
+
+      USAGE:
+      - Add "{{ '{{' }} store_test_results_json(results) {{ '}}' }}" to an `on-run-end:` block in your dbt_project.yml
+    docs:
+      show: true
+    arguments:
+      - name: results
+        type: object
+        description: Built-in dbt variable in `on-run-end` context ([here](https://docs.getdbt.com/reference/dbt-jinja-functions/on-run-end-context#results))

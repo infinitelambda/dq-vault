@@ -1,0 +1,43 @@
+version: 2
+
+macros:
+  - name: get_test_type
+    description: |
+      Build the CASE WHEN statement to get the Data Vault test type:
+      - Duplication
+      - Reconciliation
+      - Reference
+
+      Usage:
+      ```
+      select  *,
+              {{ '{{' }} get_test_type() {{ '}}' }} as model_type
+
+      from    {{ '{{' }} ref('stg_test') {{ '}}' }}
+      ```
+      # Classify Test Type of your test cases
+        - Using test config
+        ```yaml
+        models:
+          - name: my_model
+            tests:
+              - my_test:
+                  test_type: Duplication
+        ```
+        - Using test meta
+        ```yaml
+        models:
+          - name: my_model
+            tests:
+              - my_test:
+                  meta:
+                    test_type: Duplication
+        ```
+        - Using default: Automatically detect by test name/type
+          - Duplication: generic test name contains 'unique'
+          - Reconciliation: 
+            - singular test
+            - generic test name contains 'equality', 'equal'
+          - Reference: generic test name contains 'reference', 'relationship'
+    docs:
+      show: true

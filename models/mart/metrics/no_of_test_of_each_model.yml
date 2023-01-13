@@ -1,0 +1,18 @@
+version: 2
+
+metrics:
+  - name: no_of_test_of_each_model
+    label: Number of tests of each model
+    model: ref('fact_dv_tests_unnest_models')
+    description: "The total number of tests for configured for each model, including the refered models, break down by DV model type, and DV test type"
+
+    calculation_method: count_distinct
+    expression: test_id
+
+    timestamp: test_executed_at
+    time_grains: [day, week, month, quarter, year]
+
+    dimensions:
+      - test_ref_model
+      - datavault_type
+      - datavault_test_type

@@ -1,0 +1,21 @@
+version: 2
+
+macros:
+  - name: where_select_dv_models
+    description: |
+      Build the WHERE conditions to filter the test results of the related Data Vault models only
+
+      Usage:
+      ```
+      select  *
+      from    {{ '{{' }} ref('stg_test') {{ '}}' }}
+      where   (
+                {{ '{{' }} where_select_dv_models() {{ '}}' }}
+              )
+      ```
+    docs:
+      show: true
+    arguments:
+      - name: key_column
+        type: string
+        description: The column name which holding the reference models of the test. Default to 'node__refs'
