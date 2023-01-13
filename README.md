@@ -1,7 +1,7 @@
 # dq-vault
 Data Quality Observation of Data Vault layer.
 
-[![ci_integration_tests](https://github.com/il-dat/dq-vault/actions/workflows/ci_integration_tests.yml/badge.svg)](https://github.com/il-dat/dq-vault/actions/workflows/ci_integration_tests.yml)
+[![ci_integration_tests](https://github.com/infinitelambda/dbt_dq_vault/actions/workflows/ci_integration_tests.yml/badge.svg)](https://github.com/infinitelambda/dbt_dq_vault/actions/workflows/ci_integration_tests.yml)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9f262ea7-b556-4719-a176-572fc26d8da4/deploy-status)](https://app.netlify.com/sites/dq-vault/deploys)
 
