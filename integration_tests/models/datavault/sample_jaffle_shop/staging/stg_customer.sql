@@ -26,6 +26,6 @@ with stage as (
 )
 
 select  *
-        ,{{ dbt_utils.current_timestamp() }} as load_datetime
+        ,{{ current_timestamp() }} as load_datetime
         ,'jaffle_shop' as record_source
 from    stage

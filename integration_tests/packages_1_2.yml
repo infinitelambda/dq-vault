@@ -3,4 +3,4 @@ packages:
   - package: dbt-labs/dbt_utils
     version: [">=0.9.0", "<1.0.0"]
   - package: Datavault-UK/dbtvault
-    version: [">=0.7.9", "<1.0.0"]
+    version: [">=0.7.9", "<=0.9.0"]  # starting from 0.9.1 dbtvault throws "Required var 'hash' not found in config" error. This will be fixed in upcoming releases
