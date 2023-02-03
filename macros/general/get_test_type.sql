@@ -5,8 +5,8 @@
 {%- macro default__get_test_type() %}
 
   lower(coalesce(
-    cast(try_parse_json(node__test_metadata__kwargs):test_type as {{ dbt_utils.type_string() }}),
-    cast(try_parse_json(node__config__meta):test_type as {{ dbt_utils.type_string() }}),
+    cast(try_parse_json(node__test_metadata__kwargs):test_type as {{ type_string() }}),
+    cast(try_parse_json(node__config__meta):test_type as {{ type_string() }}),
     {{ dq_vault.get_test_type_by_name() }},
     'unknown'
   ))
