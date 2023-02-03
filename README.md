@@ -1,11 +1,12 @@
 # dq-vault
 This DBT package provides an overview on Data Quality for all DataVault (DV) models in your DBT project.
+
 `dq-vault` enables you to:
 - Monitor your test coverage for DV models
 - Monitor no. of tests are there for each model or each DV entity (Hub, Link, Satellite ...)
 - Be aware of tests that fail or throw warnings frequently
 - Compare the number of warnings/errors/test failures between each DBT run
-- ...
+
 
 ## What does this package do?
 It works by scanning your DBT test run results related to DataVault models and putting them into the following `views` & `metrics`:
