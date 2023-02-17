@@ -3,8 +3,6 @@ This DBT package provides an overview on Data Quality for all DataVault (DV) mod
 
 [![ci_integration_tests](https://github.com/infinitelambda/dq-vault/actions/workflows/ci_integration_tests.yml/badge.svg)](https://github.com/infinitelambda/dq-vault/actions/workflows/ci_integration_tests.yml)
 
-[![Publish dbt Documentation on Release](https://github.com/infinitelambda/dq-vault/actions/workflows/cd_dbt_docs.yml/badge.svg)](https://github.com/infinitelambda/dq-vault/actions/workflows/cd_dbt_docs.yml)
-
 `dq-vault` enables you to:
 - Monitor your test coverage for DV models
 - Monitor no. of tests are there for each model or each DV entity (Hub, Link, Satellite ...)
