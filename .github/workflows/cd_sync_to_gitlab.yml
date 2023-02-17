@@ -3,8 +3,6 @@ name: cd_sync_to_gitlab
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -21,5 +19,6 @@ jobs:
         run: |
           git config user.name "IL Github (Dat)"
           git config user.email "dat@infinitelambda.com"
-          git remote set-url origin "https://oauth2:${{ secrets.GITLAB_ACCESS_TOKEN }}@${{ secrets.GITLAB_URL }}"
+          # GITLAB_URL = gitlab.com/myuser/myrepo.git
+          git remote set-url origin "https://sync_from_github:${{ secrets.GITLAB_ACCESS_TOKEN }}@${{ secrets.GITLAB_URL }}"
           git push origin main
