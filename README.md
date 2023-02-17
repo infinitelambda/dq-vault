@@ -1,6 +1,10 @@
 # dq-vault
 This DBT package provides an overview on Data Quality for all DataVault (DV) models in your DBT project.
 
+[![ci_integration_tests](https://github.com/infinitelambda/dq-vault/actions/workflows/ci_integration_tests.yml/badge.svg)](https://github.com/infinitelambda/dq-vault/actions/workflows/ci_integration_tests.yml)
+
+[![Publish dbt Documentation on Release](https://github.com/infinitelambda/dq-vault/actions/workflows/cd_dbt_docs.yml/badge.svg)](https://github.com/infinitelambda/dq-vault/actions/workflows/cd_dbt_docs.yml)
+
 `dq-vault` enables you to:
 - Monitor your test coverage for DV models
 - Monitor no. of tests are there for each model or each DV entity (Hub, Link, Satellite ...)
@@ -25,10 +29,6 @@ It works by scanning your DBT test run results related to DataVault models and p
 A DBT project with:
 - DataVault models' names that match `dq_vault__selected_model_rules` below (the rules are configurable)
 - DBT tests for the mentioned models
-
-[![ci_integration_tests](https://github.com/infinitelambda/dq-vault/actions/workflows/ci_integration_tests.yml/badge.svg)](https://github.com/infinitelambda/dq-vault/actions/workflows/ci_integration_tests.yml)
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/9f262ea7-b556-4719-a176-572fc26d8da4/deploy-status)](https://app.netlify.com/sites/dq-vault/deploys)
 
 **Installation**
 ```yaml
@@ -101,15 +101,23 @@ Currently, there are 4 built-in test types based on the test name:
 
 
 # Macros
-List of custom built-in macros in this package
-#### get_datavault_type ([source](/macros/general/get_datavault_type.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.get_datavault_type))
-#### get_test_type ([source](/macros/general/get_test_type.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.get_test_type))
-#### where_select_dv_models ([source](/macros/general/where_select_dv_models.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.where_select_dv_models))
-#### result_to_dict ([source](/macros/on-run-end/run-results/test/result_to_dict.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.result_to_dict))
-#### store_test_results_json ([source](/macros/on-run-end/run-results/test/store_test_results_json.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.store_test_results_json))
-#### get_raw_test ([source](/macros/resources/test/get_raw_test.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.get_raw_test))
-#### create_resources ([source](/macros/resources/create_resources.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.create_resources))
-#### refresh_resouces ([source](/macros/resources/refresh_resouces.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.refresh_resouces))
+List of custom built-in macros in this package:
+
+#### store_test_results_json ([source](https://github.com/infinitelambda/dq-vault/blob/main/macros/on-run-end/run-results/test/store_test_results_json.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.store_test_results_json))
+
+#### get_datavault_type ([source](https://github.com/infinitelambda/dq-vault/blob/main/macros/general/get_datavault_type.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.get_datavault_type))
+
+#### get_test_type ([source](https://github.com/infinitelambda/dq-vault/blob/main/macros/general/get_test_type.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.get_test_type))
+
+#### where_select_dv_models ([source](https://github.com/infinitelambda/dq-vault/blob/main/macros/general/where_select_dv_models.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.where_select_dv_models))
+
+#### result_to_dict ([source](https://github.com/infinitelambda/dq-vault/blob/main/macros/on-run-end/run-results/test/result_to_dict.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.result_to_dict))
+
+#### get_raw_test ([source](https://github.com/infinitelambda/dq-vault/blob/main/macros/resources/test/get_raw_test.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.get_raw_test))
+
+#### create_resources ([source](https://github.com/infinitelambda/dq-vault/blob/main/macros/resources/create_resources.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.create_resources))
+
+#### refresh_resouces ([source](https://github.com/infinitelambda/dq-vault/blob/main/macros/resources/refresh_resouces.sql), [doc](https://dq-vault.netlify.app/#!/macro/macro.dq_vault.refresh_resouces))
 
 # Integration Tests
 The `integration_tests` directory contains a DBT project that tests the macros/models/etc in this dq-vault package. 
@@ -117,9 +125,9 @@ An integration test typically involves making 1- a new seed file; 2- a new model
 
 For an example on integration tests, check out the tests for `get_datavault_type` macro:
 
-1. [Macro definition](/macros/general/get_datavault_type.sql)
-2. [Seed or Model file with fake data](/integration_tests/models/macros/general/test_get_datavault_type.sql)
-3. [A generic test to assert the macro works as expected](/integration_tests/models/macros/general/general.yml)
+1. [Macro definition](https://github.com/infinitelambda/dq-vault/blob/main/macros/general/get_datavault_type.sql)
+2. [Seed or Model file with fake data](https://github.com/infinitelambda/dq-vault/blob/main/integration_tests/models/macros/general/test_get_datavault_type.sql)
+3. [A generic test to assert the macro works as expected](https://github.com/infinitelambda/dq-vault/blob/main/integration_tests/models/macros/general/general.yml)
 
 Once you've added all of these files, you should be able to run:
 
