@@ -43,3 +43,17 @@ dq_vault_integration_tests:
       port: "{{ env_var('DBT_REDSHIFT_TEST_PORT') | as_number }}"
       schema: "{{ env_var('DBT_SCHEMA', 'dq_vault_integration_tests') }}"
       threads: 5
+
+dq_vault:
+  target: snowflake
+  outputs:
+    snowflake:
+      type: snowflake
+      account: "{{ env_var('DBT_SNOWFLAKE_TEST_ACCOUNT') }}"
+      user: "{{ env_var('DBT_SNOWFLAKE_TEST_USER') }}"
+      password: "{{ env_var('DBT_ENV_SECRET_SNOWFLAKE_TEST_PASSWORD') }}"
+      role: "{{ env_var('DBT_SNOWFLAKE_TEST_ROLE') }}"
+      database: "{{ env_var('DBT_SNOWFLAKE_TEST_DATABASE') }}"
+      warehouse: "{{ env_var('DBT_SNOWFLAKE_TEST_WAREHOUSE') }}"
+      schema: "{{ env_var('DBT_SCHEMA', 'dq_vault_integration_tests') }}"
+      threads: 10
