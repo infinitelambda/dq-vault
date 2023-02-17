@@ -3,6 +3,8 @@ config-version: 2
 version: '0.1.1'
 require-dbt-version: ">=1.3.0"
 
+profile: 'dq_vault'
+
 test-paths: ["tests"]
 
 target-path: "target"
